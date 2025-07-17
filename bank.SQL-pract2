@@ -18,7 +18,7 @@ mysql> show databases;
 mysql> use bank;
 Database changed
 
-   mysql> CREATE TABLE customer
+mysql> CREATE TABLE customer
     -> (
     ->   customer_id INT NOT NULL,
     ->   name INT NOT NULL,
