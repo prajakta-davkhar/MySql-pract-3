@@ -1,0 +1,162 @@
+
+mysql> create database bank;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| information_schema |
+| mysql              |
+| new                |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use bank;
+Database changed
+mysql> CREATE TABLE Customer
+    -> (
+    ->   customer_id INT NOT NULL,
+    ->   name INT NOT NULL,
+    ->   contact_no INT NOT NULL,
+    ->   address INT NOT NULL,
+    ->   email_id INT NOT NULL,
+    ->   PRIMARY KEY (customer_id)
+    -> );
+
+
+mysql> CREATE TABLE Transition
+    -> (
+    ->   transition_id INT NOT NULL,
+    ->   account_no INT NOT NULL,
+    ->   transition_type INT NOT NULL,
+    ->   transition_date INT NOT NULL,
+    ->   transition_time INT NOT NULL,
+    ->   amount INT NOT NULL,
+    ->   PRIMARY KEY (transition_id)
+    -> );
+
+mysql> CREATE TABLE Employee
+    -> (
+    ->   employee_id INT NOT NULL,
+    ->   name INT NOT NULL,
+    ->   branch INT NOT NULL,
+    ->   role INT NOT NULL,
+    ->   PRIMARY KEY (employee_id)
+    -> );
+
+mysql> CREATE TABLE Account
+    -> (
+    ->   account_no INT NOT NULL,
+    ->   customer_id INT NOT NULL,
+    ->   account_type INT NOT NULL,
+    ->   balance INT NOT NULL,transition_id INT NOT NULL,
+    ->   PRIMARY KEY (account_no),
+    ->   FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    ->   FOREIGN KEY (transition_id) REFERENCES Transition(transition_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create user 'Amit'@localhost identified by 'Amit123';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> grant all privileges on bank.Account to 'Amit'@localhost;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all privileges on bank.Customer to 'Amit'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user 'Manager'@localhost identified by 'Manager123';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all privileges on bank.Account to 'Manager'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges on bank.Customer to 'Manager'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges on bank.Transition to 'Manager'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges on bank.Employee to 'Manager'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -h localhost -u Manager -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+mysql> use bank;
+Database changed
+mysql> alter table customer add email varchar(30);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Customer;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| customer_id | int         | NO   | PRI | NULL    |       |
+| name        | int         | NO   |     | NULL    |       |
+| contact_no  | int         | NO   |     | NULL    |       |
+| address     | int         | NO   |     | NULL    |       |
+| email_id    | int         | NO   |     | NULL    |       |
+| email       | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> desc Account;
++---------------+------+------+-----+---------+-------+
+| Field         | Type | Null | Key | Default | Extra |
++---------------+------+------+-----+---------+-------+
+| account_no    | int  | NO   | PRI | NULL    |       |
+| customer_id   | int  | NO   | MUL | NULL    |       |
+| account_type  | int  | NO   |     | NULL    |       |
+| balance       | int  | NO   |     | NULL    |       |
+| transition_id | int  | NO   | MUL | NULL    |       |
++---------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> desc Transition;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| transition_id   | int  | NO   | PRI | NULL    |       |
+| account_no      | int  | NO   |     | NULL    |       |
+| transition_type | int  | NO   |     | NULL    |       |
+| transition_date | int  | NO   |     | NULL    |       |
+| transition_time | int  | NO   |     | NULL    |       |
+| amount          | int  | NO   |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc Employee;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| employee_id | int  | NO   | PRI | NULL    |       |
+| name        | int  | NO   |     | NULL    |       |
+| branch      | int  | NO   |     | NULL    |       |
+| role        | int  | NO   |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
