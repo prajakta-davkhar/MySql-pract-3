@@ -1,0 +1,99 @@
+mysql> use bankdb;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_bankdb |
++------------------+
+| account          |
+| customer         |
+| employee         |
+| transaction      |
++------------------+
+4 rows in set (0.02 sec)
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| ID     | int         | NO   | PRI | NULL    | auto_increment |
+| Name   | varchar(50) | NO   |     | NULL    |                |
+| Branch | varchar(50) | NO   |     | NULL    |                |
+| Role   | varchar(50) | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee alter column branch SET DEFAULT('Talegaon');
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------+-------------+------+-----+----------+----------------+
+| Field  | Type        | Null | Key | Default  | Extra          |
++--------+-------------+------+-----+----------+----------------+
+| ID     | int         | NO   | PRI | NULL     | auto_increment |
+| Name   | varchar(50) | NO   |     | NULL     |                |
+| Branch | varchar(50) | NO   |     | Talegaon |                |
+| Role   | varchar(50) | NO   |     | NULL     |                |
++--------+-------------+------+-----+----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> create database demo;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop database demo;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table employee CHANGE ID Employee_ID int;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+-------------+------+-----+----------+-------+
+| Field       | Type        | Null | Key | Default  | Extra |
++-------------+-------------+------+-----+----------+-------+
+| Employee_ID | int         | NO   | PRI | NULL     |       |
+| Name        | varchar(50) | NO   |     | NULL     |       |
+| Branch      | varchar(50) | NO   |     | Talegaon |       |
+| Role        | varchar(50) | NO   |     | NULL     |       |
++-------------+-------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table transaction modify amount decimal(10,2) NOT NULL;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc transaction;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| Transaction_id | int           | NO   | PRI | NULL    | auto_increment |
+| Account_no     | int           | NO   | MUL | NULL    |                |
+| Txn_Date       | date          | NO   |     | NULL    |                |
+| Txn_Time       | time          | NO   |     | NULL    |                |
+| amount         | decimal(10,2) | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employee(Employee_id,Name,Branch,Role) values (10,'Priya','CE','student');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+----------+-------+
+| Field       | Type        | Null | Key | Default  | Extra |
++-------------+-------------+------+-----+----------+-------+
+| Employee_ID | int         | NO   | PRI | NULL     |       |
+| Name        | varchar(50) | NO   |     | NULL     |       |
+| Branch      | varchar(50) | NO   |     | Talegaon |       |
+| Role        | varchar(50) | NO   |     | NULL     |       |
++-------------+-------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------------+-------+--------+---------+
+| Employee_ID | Name  | Branch | Role    |
++-------------+-------+--------+---------+
+|          10 | Priya | CE     | student |
++-------------+-------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql>
