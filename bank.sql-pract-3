@@ -1,0 +1,233 @@
+Microsoft Windows [Version 10.0.26100.1]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -h localhost -u root -p
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 25
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use bankdb;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_bankdb |
++------------------+
+| account          |
+| customer         |
+| customer_view    |
+| employee         |
+| transaction      |
++------------------+
+5 rows in set (0.03 sec)
+
+mysql> desc account;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Account_no   | int           | NO   | PRI | NULL    |       |
+| Account_type | varchar(50)   | NO   |     | NULL    |       |
+| Balance      | decimal(10,2) | NO   |     | NULL    |       |
+| customerid   | int           | NO   | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| customerid | int         | NO   | PRI | NULL    |       |
+| Name       | varchar(50) | NO   |     | NULL    |       |
+| Address    | varchar(50) | NO   |     | NULL    |       |
+| contactno  | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc transaction;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| Transaction_id | int           | NO   | PRI | NULL    | auto_increment |
+| Account_no     | int           | NO   | MUL | NULL    |                |
+| Txn_Date       | date          | NO   |     | NULL    |                |
+| Txn_Time       | time          | NO   |     | NULL    |                |
+| amount         | decimal(10,2) | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+----------+-------+
+| Field       | Type        | Null | Key | Default  | Extra |
++-------------+-------------+------+-----+----------+-------+
+| Employee_ID | int         | NO   | PRI | NULL     |       |
+| Name        | varchar(50) | NO   |     | NULL     |       |
+| Branch      | varchar(50) | NO   |     | Talegaon |       |
+| Role        | varchar(50) | NO   |     | NULL     |       |
++-------------+-------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from account;
++------------+--------------+----------+------------+
+| Account_no | Account_type | Balance  | customerid |
++------------+--------------+----------+------------+
+|       1001 | saving       |  6700.00 |       1000 |
+|       1002 | saving       | 50000.00 |       1001 |
+|       1003 | saving       | 76000.00 |       1002 |
++------------+--------------+----------+------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from customer;
++------------+-------+---------+-----------+
+| customerid | Name  | Address | contactno |
++------------+-------+---------+-----------+
+|         11 | Riya  | pune    | 9087776   |
+|         12 | Priya | nashik  | 8763545   |
+|         13 | pooja | nashik  | 64567282  |
+|       1000 | riya  | pune    | 92827     |
+|       1001 | priya | nashik  | 786866    |
+|       1002 | pooja | pune    | 7879959   |
++------------+-------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select Name, Account_type, Balance from customer c, account a where c.customerid = a.customerid;
++-------+--------------+----------+
+| Name  | Account_type | Balance  |
++-------+--------------+----------+
+| riya  | saving       |  6700.00 |
+| priya | saving       | 50000.00 |
+| pooja | saving       | 76000.00 |
++-------+--------------+----------+
+3 rows in set (0.00 sec)
+
+
+mysql> CREATE OR REPLACE VIEW customer_view AS
+    -> SELECT c.Name, a.Account_type,a.Balance
+    -> FROM customer c
+    -> JOIN Account a ON c.customerid = a.customerid
+    -> ;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from customer_view;
++-------+--------------+----------+
+| Name  | Account_type | Balance  |
++-------+--------------+----------+
+| riya  | saving       |  6700.00 |
+| priya | saving       | 50000.00 |
+| pooja | saving       | 76000.00 |
++-------+--------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> desc customer_view;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Name         | varchar(50)   | NO   |     | NULL    |       |
+| Account_type | varchar(50)   | NO   |     | NULL    |       |
+| Balance      | decimal(10,2) | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE transaction ADD COLUMN transaction_date DATE;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc account;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Account_no   | int           | NO   | PRI | NULL    |       |
+| Account_type | varchar(50)   | NO   |     | NULL    |       |
+| Balance      | decimal(10,2) | NO   |     | NULL    |       |
+| customerid   | int           | NO   | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> CREATE INDEX index1 ON transaction(transaction_date);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show indexes from transaction;
++-------------+------------+------------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table       | Non_unique | Key_name   | Seq_in_index | Column_name      | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------------+------------+------------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| transaction |          0 | PRIMARY    |            1 | Transaction_id   | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | Account_no |            1 | Account_no       | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | index1     |            1 | transaction_date | A         |           0 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------------+------------+------------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select name from customer where name like 'p%';
++-------+
+| name  |
++-------+
+| Priya |
+| pooja |
+| priya |
+| pooja |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> desc account
+    -> ;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Account_no   | int           | NO   | PRI | NULL    |       |
+| Account_type | varchar(50)   | NO   |     | NULL    |       |
+| Balance      | decimal(10,2) | NO   |     | NULL    |       |
+| customerid   | int           | NO   | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into customer (customerid, Name, Address, contactno) values (1005,'sonali', 'pune', 8756455);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into account values (1004,'current',50000,1005);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++------------+--------+---------+-----------+
+| customerid | Name   | Address | contactno |
++------------+--------+---------+-----------+
+|         11 | Riya   | pune    | 9087776   |
+|         12 | Priya  | nashik  | 8763545   |
+|         13 | pooja  | nashik  | 64567282  |
+|       1000 | riya   | pune    | 92827     |
+|       1001 | priya  | nashik  | 786866    |
+|       1002 | pooja  | pune    | 7879959   |
+|       1005 | sonali | pune    | 8756455   |
++------------+--------+---------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from account;
++------------+--------------+----------+------------+
+| Account_no | Account_type | Balance  | customerid |
++------------+--------------+----------+------------+
+|       1001 | saving       |  6700.00 |       1000 |
+|       1002 | saving       | 50000.00 |       1001 |
+|       1003 | saving       | 76000.00 |       1002 |
+|       1004 | current      | 50000.00 |       1005 |
++------------+--------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql>  select balance from account where balance between 1000 and 1000000;
++----------+
+| balance  |
++----------+
+|  6700.00 |
+| 50000.00 |
+| 76000.00 |
+| 50000.00 |
++----------+
+4 rows in set (0.00 sec)
+
