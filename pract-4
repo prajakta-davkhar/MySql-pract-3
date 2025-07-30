@@ -1,0 +1,493 @@
+Microsoft Windows [Version 10.0.26100.1]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -h localhost -u root -p
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 28
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use bankdb;
+Database changed
+mysql> select datediff('2025-06-10','2025-07-30');
++-------------------------------------+
+| datediff('2025-06-10','2025-07-30') |
++-------------------------------------+
+|                                 -50 |
++-------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> select format(day,'2025-06-03');
+ERROR 1054 (42S22): Unknown column 'day' in 'field list'
+mysql> select format(day,'2025-05-10');
+ERROR 1054 (42S22): Unknown column 'day' in 'field list'
+mysql> SELECT ABS(-70);
++----------+
+| ABS(-70) |
++----------+
+|       70 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> SELECT POWER(2, 4);
++-------------+
+| POWER(2, 4) |
++-------------+
+|          16 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql>  SELECT COS(2);
++---------------------+
+| COS(2)              |
++---------------------+
+| -0.4161468365471424 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT SIN(PI()/2);
++-------------+
+| SIN(PI()/2) |
++-------------+
+|           1 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT TAN(PI()/6);
++--------------------+
+| TAN(PI()/6)        |
++--------------------+
+| 0.5773502691896257 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> ^C
+mysql> SELECT LN(6);
++-------------------+
+| LN(6)             |
++-------------------+
+| 1.791759469228055 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> ^C
+mysql> SELECT LOG(10);
++-------------------+
+| LOG(10)           |
++-------------------+
+| 2.302585092994046 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ROUND(123.4567, 3);
++--------------------+
+| ROUND(123.4567, 3) |
++--------------------+
+|            123.457 |
++--------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT FLOOR(123.5648);
++-----------------+
+| FLOOR(123.5648) |
++-----------------+
+|             123 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CEIL(123.6537);
++----------------+
+| CEIL(123.6537) |
++----------------+
+|            124 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT SQRT(12);
++--------------------+
+| SQRT(12)           |
++--------------------+
+| 3.4641016151377544 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MAX(balance) FROM account;
++--------------+
+| MAX(balance) |
++--------------+
+|     76000.00 |
++--------------+
+1 row in set (0.04 sec)
+
+mysql> SELECT MIN(balance) FROM account;
++--------------+
+| MIN(balance) |
++--------------+
+|      6700.00 |
++--------------+
+1 row in set (0.01 sec)
+
+mysql>  SELECT AVG(balance) FROM account;
++--------------+
+| AVG(balance) |
++--------------+
+| 45675.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT SUM(balance) FROM account;
++--------------+
+| SUM(balance) |
++--------------+
+|    182700.00 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT COUNT(balance) FROM account;
++----------------+
+| COUNT(balance) |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.02 sec)
+
+mysql>  SELECT COUNT(*) FROM account;
++----------+
+| COUNT(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CONCAT_WS(' ', 'Hello', NULL, 'World');
++----------------------------------------+
+| CONCAT_WS(' ', 'Hello', NULL, 'World') |
++----------------------------------------+
+| Hello World                            |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LENGTH('dypcoei');
++-------------------+
+| LENGTH('dypcoei') |
++-------------------+
+|                 7 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ELT(3, 'abc', 'aa', 'axy');
++----------------------------+
+| ELT(3, 'abc', 'aa', 'axy') |
++----------------------------+
+| axy                        |
++----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT FIND_IN_SET('a', 'a,b,c,d');
++-----------------------------+
+| FIND_IN_SET('a', 'a,b,c,d') |
++-----------------------------+
+|                           1 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FORMAT(123.3456, 3);
++---------------------+
+| FORMAT(123.3456, 3) |
++---------------------+
+| 123.346             |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSERT('DYPCOEI', 3, 6, 'varale');
++-----------------------------------+
+| INSERT('DYPCOEI', 3, 6, 'varale') |
++-----------------------------------+
+| DYvarale                          |
++-----------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT LEFT('DYPCOEI', 3);
++--------------------+
+| LEFT('DYPCOEI', 3) |
++--------------------+
+| DYP                |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT RIGHT('DYPCOEI', 3);
++---------------------+
+| RIGHT('DYPCOEI', 3) |
++---------------------+
+| OEI                 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT LOWER('ABC');
++--------------+
+| LOWER('ABC') |
++--------------+
+| abc          |
++--------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT LTRIM('   ABC');
++-----------------+
+| LTRIM('   ABC') |
++-----------------+
+| ABC             |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql>  SELECT REPEAT('MySql', 4);
++----------------------+
+| REPEAT('MySql', 4)   |
++----------------------+
+| MySqlMySqlMySqlMySql |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REPLACE('MySql', 'M', 'PPP');
++------------------------------+
+| REPLACE('MySql', 'M', 'PPP') |
++------------------------------+
+| PPPySql                      |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT account_type, SUM(Balance) AS total_balance
+    ->  FROM account
+    -> GROUP BY account_type;
++--------------+---------------+
+| account_type | total_balance |
++--------------+---------------+
+| saving       |     132700.00 |
+| current      |      50000.00 |
++--------------+---------------+
+2 rows in set (0.02 sec)
+
+mysql> select currdate();
+ERROR 1305 (42000): FUNCTION bankdb.currdate does not exist
+mysql> select CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2025-07-30 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select day('2025-07-30');
++-------------------+
+| day('2025-07-30') |
++-------------------+
+|                30 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname('2025-07-30');
++-----------------------+
+| dayname('2025-07-30') |
++-----------------------+
+| Wednesday             |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> select localtime();
++---------------------+
+| localtime()         |
++---------------------+
+| 2025-07-30 21:19:23 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT EXTRACT(MONTH FROM '2025-07-25') AS month,
+    -> EXTRACT(DAY FROM '2025-07-25') AS day,
+    ->  EXTRACT(YEAR FROM '2025-07-25') AS year;
++-------+------+------+
+| month | day  | year |
++-------+------+------+
+|     7 |   25 | 2025 |
++-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select timestamp();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> SELECT CURRENT_TIMESTAMP;
++---------------------+
+| CURRENT_TIMESTAMP   |
++---------------------+
+| 2025-07-30 21:20:59 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK('2025-07-25') AS day_of_week;
++-------------+
+| day_of_week |
++-------------+
+|           6 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> create table X(a int,b int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table Y(x int, y int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from X union selct * from Y;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from Y' at line 1
+mysql> SELECT CustomerID FROM account
+    -> UNION
+    -> SELECT CustomerID FROM customer;
++------------+
+| CustomerID |
++------------+
+|       1000 |
+|       1001 |
+|       1002 |
+|       1005 |
+|         11 |
+|         12 |
+|         13 |
++------------+
+7 rows in set (0.01 sec)
+
+mysql>  SELECT CustomerID FROM account a
+    ->  WHERE NOT EXISTS (
+    ->  SELECT 1 FROM customer c WHERE c.CustomerID = a.CustomerID
+    -> );
+Empty set (0.01 sec)
+
+mysql> SELECT CustomerID FROM account
+    -> WHERE CustomerID IN (SELECT CustomerID FROM customer);
++------------+
+| CustomerID |
++------------+
+|       1000 |
+|       1001 |
+|       1002 |
+|       1005 |
++------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT a.CustomerID
+    -> FROM account a
+    -> INNER JOIN customer c ON a.CustomerID = c.CustomerID;
++------------+
+| CustomerID |
++------------+
+|       1000 |
+|       1001 |
+|       1002 |
+|       1005 |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| customerid | int         | NO   | PRI | NULL    |       |
+| Name       | varchar(50) | NO   |     | NULL    |       |
+| Address    | varchar(50) | NO   |     | NULL    |       |
+| contactno  | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT Balance FROM account a
+    ->  WHERE NOT EXISTS (
+    ->  SELECT 1 FROM employee e WHERE e.Salary = a.Balance
+    -> );
+ERROR 1054 (42S22): Unknown column 'e.Salary' in 'where clause'
+mysql> DESCRIBE employee;
++-------------+-------------+------+-----+----------+-------+
+| Field       | Type        | Null | Key | Default  | Extra |
++-------------+-------------+------+-----+----------+-------+
+| Employee_ID | int         | NO   | PRI | NULL     |       |
+| Name        | varchar(50) | NO   |     | NULL     |       |
+| Branch      | varchar(50) | NO   |     | Talegaon |       |
+| Role        | varchar(50) | NO   |     | NULL     |       |
++-------------+-------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee ADD Salary DECIMAL(10,2);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT Balance
+    -> FROM account a
+    -> WHERE NOT EXISTS (
+    ->   SELECT 1 FROM employee e WHERE e.Salary = a.Balance
+    -> );
++----------+
+| Balance  |
++----------+
+|  6700.00 |
+| 50000.00 |
+| 76000.00 |
+| 50000.00 |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT a.Balance
+    ->  FROM account a
+    -> INNER JOIN employee e ON a.Balance = e.Salary;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO X (a, b) VALUES (1, 2), (3, 4), (5, 6), (7, 8);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Y (x, y) VALUES (1, 2), (4, 5), (8, 13), (12, 14);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT a, b FROM X
+    ->  UNION
+    ->  SELECT x, y FROM Y;
++------+------+
+| a    | b    |
++------+------+
+|    1 |    2 |
+|    3 |    4 |
+|    5 |    6 |
+|    7 |    8 |
+|    4 |    5 |
+|    8 |   13 |
+|   12 |   14 |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql>  SELECT a, b FROM X
+    -> INNER JOIN Y ON X.a = Y.x AND X.b = Y.y;
++------+------+
+| a    | b    |
++------+------+
+|    1 |    2 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT a, b FROM X
+    -> ^C
+mysql> SELECT a, b FROM X
+    ->  WHERE NOT EXISTS (
+    -> SELECT 1 FROM Y WHERE Y.x = X.a AND Y.y = X.b
+    -> );
++------+------+
+| a    | b    |
++------+------+
+|    3 |    4 |
+|    5 |    6 |
+|    7 |    8 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql>
